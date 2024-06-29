@@ -1,9 +1,12 @@
+import { Route, Routes } from "react-router-dom";
+import AuthPage from "./Pages/AuthPage";
+import HomePage from "./Pages/HomePage";
+
 export default function App() {
   return (
-    <div>
-    <h1 className="text-8xl text-yellow-500 font-bold underline">
-      Hello world!
-    </h1>
-    </div>
+   <Routes>
+    <Route path="/" Component={AuthPage} />
+    <Route path="/home" Component={HomePage} />
+   </Routes>
   )
 }

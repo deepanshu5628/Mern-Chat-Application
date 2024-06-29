@@ -5,6 +5,7 @@ require("dotenv").config();
 //  ----------------------------------------Register----------------------------------------
 
 const Register = async (req, res) => {
+
    try {
     let { email, password, name, confirmPassword } = req.body;
     // basic validations
