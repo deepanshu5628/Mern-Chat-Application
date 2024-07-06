@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../Components/Common/Header';
-import ChatInfo from '../Components/Core/Chat/ChatInfo';
+import ChatInfo from '../Components/Core/Chat/ChatInfo/ChatInfo';
 import ChatLogs from '../Components/Core/Chat/ChatLogs';
 import { useDispatch, useSelector } from 'react-redux';
 import Searchbar from '../Components/Common/Searchbar';

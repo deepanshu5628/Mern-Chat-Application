@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import {  fetchallchats } from "../../../Services/Operations/Chats";
-import { setsearchbar,setdialogbox } from '../../../Redux/Slices/authSlice';
+import { fetchallchats } from "../../../Services/Operations/Chats";
+import { setsearchbar, setdialogbox, setselectedchat } from '../../../Redux/Slices/authSlice';
 import Dialogbox from '../../Common/Dialogbox';
 function ChatLogs() {
-  const {token,searchbar,dialogbox} = useSelector((state) => state.auth);
+  const { token, searchbar, dialogbox, selectedchat} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   let [user, setuser] = useState([]);
   let [loading, setloading] = useState(false);
@@ -77,13 +77,19 @@ function ChatLogs() {
   }
   useEffect(() => {
     fetchchats();
-  }, [searchbar,dialogbox])
+  }, [searchbar, dialogbox])
+
+  // fxn1 
+  function openchat(item){
+    dispatch(setselectedchat(item.chatName));
+    localStorage.setItem("selectedchat",item.chatName);
+  }
   return (
     <div className=' w-[29%] h-full rounded-lg p-3 px-4 bg-pink-300'>
       {/* div 1 */}
       <div className='flex justify-between '>
         <p className='text-3xl cursor-default'>My Chats</p>
-        <button onClick={()=>dispatch(setdialogbox(true))} className='p-2 rounded-md bg-gray-500 flex gap-2 cursor-pointer'>
+        <button onClick={() => dispatch(setdialogbox(true))} className='p-2 rounded-md bg-gray-500 flex gap-2 cursor-pointer'>
           <p >New Group Chat</p>
           <FaPlus className='self-center' />
         </button>
@@ -100,8 +106,8 @@ function ChatLogs() {
                   <button className='p-2 my-1 text-xl bg-green-600 rounded-md' onClick={() => dispatch(setsearchbar(true))}>New Chat</button>
                 </div>
               </div> : user.map((item, index) => {
-                return <div className='bg-gray-700 p-2 rounded-md my-2 cursor-pointer flex gap-3 ' key={index}>
-                  <img className='w-14 h-14 rounded-md' src={item.users[1].picture}/>
+                return <div onClick={()=>openchat(item)} className={`bg-gray-700 p-2 rounded-md my-2 cursor-pointer flex gap-3 ${selectedchat==item.chatName && `bg-yellow-600`}`} key={index}>
+                  <img className='w-14 h-14 rounded-md' src={item.users[1].picture} />
                   <p className='font-bold text-xl'>{item.chatName.substring(0, 30)}</p>
                 </div>
               })

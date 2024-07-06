@@ -9,6 +9,7 @@ const authSlice=createSlice({
         userinfo:localStorage.getItem("userinfo")?JSON.parse(localStorage.getItem("userinfo")):null,
         searchbar:false,
         dialogbox:false,
+        selectedchat:localStorage.getItem("selectedchat")?localStorage.getItem("selectedchat"):null,
     },
     reducers:{
         settoken:(state,actions)=>{
@@ -25,15 +26,19 @@ const authSlice=createSlice({
         },
         setdialogbox:(state,actions)=>{
             state.dialogbox=actions.payload;
-        }
-        ,setlogout:(state)=>{
+        },
+        setselectedchat:(state,actions)=>{
+            state.selectedchat=actions.payload;
+        },
+        setlogout:(state)=>{
             state.userinfo=null;
             state.token=null;
             state.loading=false;
             state.searchbar=false;
             state.dialogbox=false;
+            state.selectedchat=null;
         }
     }
 });
-export const {settoken,setloading,setuserinfo,setsearchbar,setlogout,setdialogbox}=authSlice.actions;
+export const {settoken,setloading,setuserinfo,setsearchbar,setlogout,setdialogbox,setselectedchat}=authSlice.actions;
 export default authSlice.reducer;
