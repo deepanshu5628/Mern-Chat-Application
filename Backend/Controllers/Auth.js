@@ -49,7 +49,7 @@ const Register = async (req, res) => {
         newuser,
     })
    } catch (error) {
-    res.status(400).json({
+    res.status(200).json({
         success: false,
         message: "error in Register controller",
         data: error,
@@ -91,18 +91,20 @@ const Login = async (req, res) => {
         // generate a token
         const payload = {
             email,
+            _id:userinfo._id,
         }
         const token = await jwt.sign(payload, process.env.JWTSECRET)
-
+        userinfo.password=null;
         // send the responce
         res.status(200).json({
             success: true,
             message: "Loged in successfully",
             token,
+            userinfo,
         })
     }
     catch (error) {
-        res.status(400).json({
+        res.status(200).json({
             success: false,
             message: "error in login controller",
             data: error,

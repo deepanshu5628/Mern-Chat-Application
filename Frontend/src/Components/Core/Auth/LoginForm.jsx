@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { loginhandler } from "../../../Services/Operations/Authorization";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 function LoginForm() {
+    const navigate=useNavigate();
+    const dispatch=useDispatch();
     let [formdata,setformdata]=useState({
         email:"",
         password:"",
@@ -15,7 +18,7 @@ function LoginForm() {
 
     async function formsubmithandler(e){
         e.preventDefault();
-        let res=await loginhandler(formdata);
+        let res=await loginhandler(formdata,navigate,dispatch);
     }
     return (
         <div>

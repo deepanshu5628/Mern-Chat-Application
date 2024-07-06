@@ -14,11 +14,11 @@ const chatSchema = new mongoose.Schema({
     isGroupChat: {
         type: Boolean,
         required: true,
+        default:false,
     },
     groupAdmin: {
         type: mongoose.Types.ObjectId,
         ref: "User",
-        required: true,
     },
     latestMessage: {
         type: mongoose.Types.ObjectId,

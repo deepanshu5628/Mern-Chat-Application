@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { SignUphandler } from '../../../Services/Operations/Authorization';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 
 export default function SignUpForm() {
+    const navigate=useNavigate();
+    const dispatch=useDispatch();
     let [formdata,setformdata]=useState({
         name:"",
         email:"",
@@ -21,7 +25,7 @@ export default function SignUpForm() {
             return;
         }
 
-        let res=await SignUphandler(formdata);
+        let res=await SignUphandler(formdata,navigate,dispatch);
         
     }
     return (

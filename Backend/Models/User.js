@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
     name: {
-        type:String,
-        required:true
+        type: String,
+        required: true
     },
     email: {
         type: String,
@@ -17,11 +17,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: "data:image/jpeg;base64,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"
-    }
+    }, isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
 }, {
     timestamps: true,
 }
 );
 
-const User=mongoose.model("User",userSchema);
-module.exports=User;
+const User = mongoose.model("User", userSchema);
+module.exports = User;

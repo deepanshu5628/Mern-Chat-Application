@@ -12,6 +12,14 @@ app.listen(port,()=>{
     console.log("app is running on port",port);
 })
 
-// routes
-const UserRoutes=require("./Routes/User");
-app.use("/api/v1/auth",UserRoutes);
+// auth routes
+const AuthRoutes=require("./Routes/auth");
+app.use("/api/v1/auth",AuthRoutes);
+
+// user routes
+const UserRoutes=require("./Routes/user.js");
+app.use("/api/v1/user",UserRoutes);
+
+// chat routes
+const ChatRoutes=require("./Routes/chat.js");
+app.use("/api/v1/chat",ChatRoutes);
