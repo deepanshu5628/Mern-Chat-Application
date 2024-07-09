@@ -9,7 +9,7 @@ const authSlice=createSlice({
         userinfo:localStorage.getItem("userinfo")?JSON.parse(localStorage.getItem("userinfo")):null,
         searchbar:false,
         dialogbox:false,
-        selectedchat:localStorage.getItem("selectedchat")?localStorage.getItem("selectedchat"):null,
+        selectedchat:localStorage.getItem("selectedchat")?JSON.parse(localStorage.getItem("selectedchat")):null,
     },
     reducers:{
         settoken:(state,actions)=>{

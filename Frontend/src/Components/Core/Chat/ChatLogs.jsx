@@ -5,7 +5,7 @@ import { fetchallchats } from "../../../Services/Operations/Chats";
 import { setsearchbar, setdialogbox, setselectedchat } from '../../../Redux/Slices/authSlice';
 import Dialogbox from '../../Common/Dialogbox';
 function ChatLogs() {
-  const { token, searchbar, dialogbox, selectedchat} = useSelector((state) => state.auth);
+  const { token, searchbar, dialogbox, selectedchat } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   let [user, setuser] = useState([]);
   let [loading, setloading] = useState(false);
@@ -80,9 +80,9 @@ function ChatLogs() {
   }, [searchbar, dialogbox])
 
   // fxn1 
-  function openchat(item){
-    dispatch(setselectedchat(item.chatName));
-    localStorage.setItem("selectedchat",item.chatName);
+  function openchat(item) {
+    dispatch(setselectedchat(item));
+    localStorage.setItem("selectedchat", JSON.stringify(item));
   }
   return (
     <div className=' w-[29%] h-full rounded-lg p-3 px-4 bg-pink-300'>
@@ -106,9 +106,15 @@ function ChatLogs() {
                   <button className='p-2 my-1 text-xl bg-green-600 rounded-md' onClick={() => dispatch(setsearchbar(true))}>New Chat</button>
                 </div>
               </div> : user.map((item, index) => {
-                return <div onClick={()=>openchat(item)} className={`bg-gray-700 p-2 rounded-md my-2 cursor-pointer flex gap-3 ${selectedchat==item.chatName && `bg-yellow-600`}`} key={index}>
+                return <div onClick={() => openchat(item)} className={`bg-gray-700 p-2 rounded-md my-2 cursor-pointer flex gap-3 ${selectedchat&& selectedchat.chatName == item.chatName && `bg-yellow-600`}`} key={index}>
                   <img className='w-14 h-14 rounded-md' src={item.users[1].picture} />
-                  <p className='font-bold text-xl'>{item.chatName.substring(0, 30)}</p>
+                  <div>
+                    <p className='font-bold text-xl'>{item.chatName.substring(0, 30)}</p>
+                    {
+                      item.latestMessage && <p>{item.latestMessage.content.substring(0,15)}..</p>
+                    }
+                  </div>
+
                 </div>
               })
             }

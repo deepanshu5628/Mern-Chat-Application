@@ -97,7 +97,7 @@ const creategroupChat = async (req, res) => {
 const getallchats = async (req, res) => {
     try {
         let ownerid = req.user._id;
-        let allchats = await Chat.find({ users: { $in: ownerid } }).populate("users");
+        let allchats = await Chat.find({ users: { $in: ownerid } }).populate("users").populate("latestMessage");
         if (!allchats) {
             return res.status(200).json({
                 success: true,
