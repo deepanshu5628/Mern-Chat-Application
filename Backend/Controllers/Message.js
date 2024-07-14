@@ -53,7 +53,7 @@ const sendmess = async (req, res) => {
 
 const chatmessages=async(req,res)=>{
     try {
-        console.log(req.params)
+        // console.log(req.params)
         let {chatid}=req.params;
         if(!chatid){
             return res.status(200).json({
