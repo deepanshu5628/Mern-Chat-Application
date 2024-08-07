@@ -3,6 +3,7 @@ import { apiconnector } from "../apiconnector";
 import { auth } from "../apis"
 import { useDispatch } from "react-redux";
 import { setloading, setlogout, settoken, setuserinfo } from "../../Redux/Slices/authSlice"
+import { setonlineuser, setsocket } from "../../Redux/Slices/socketSlice";
 export async function SignUphandler(data, navigate, dispatch) {
     try {
         dispatch(setloading(true));
@@ -51,6 +52,8 @@ export async function logouthandler(navigate, dispatch) {
         dispatch(setloading(true));
         localStorage.clear();
         dispatch(setlogout());
+        dispatch(setsocket(null));
+        dispatch(setonlineuser([]));
         navigate("/");
         toast.success("loged out");
         dispatch(setloading(false));

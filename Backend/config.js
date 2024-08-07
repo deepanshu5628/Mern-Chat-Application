@@ -1,7 +1,8 @@
 const mongosee=require("mongoose");
 
 let connectdb=async ()=>{
-    await mongosee.connect("mongodb+srv://d2810202:7tWqoFTLP0avzf6U@chatapplications.hcx5ppg.mongodb.net/?retryWrites=true&w=majority&appName=ChatApplications");
+    // await mongosee.connect("mongodb+srv://d2810202:7tWqoFTLP0avzf6U@chatapplications.hcx5ppg.mongodb.net/?retryWrites=true&w=majority&appName=ChatApplications");
+    await mongosee.connect("mongodb://localhost:27017/chai");
 }
 
 let startdb=()=>{

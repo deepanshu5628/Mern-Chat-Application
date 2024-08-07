@@ -16,7 +16,7 @@ function Header() {
                 <p > Search bar</p>
             </div>
             {/* div 2 */}
-            <div className="font-bold text-2xl cursor-default"> Chai pe Charcha</div>
+            <div className="font-bold text-2xl cursor-default"> {userinfo ?userinfo.email:"cai pe charcha"}</div>
             {/* div 3 */}
             <div className="flex   items-center gap-2">
                     <img src={userinfo.picture} className="h-8 w-8 rounded-full" alt="" />

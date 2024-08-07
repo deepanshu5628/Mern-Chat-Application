@@ -2,9 +2,9 @@ import { MdCancel } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setsearchbar } from "../../Redux/Slices/authSlice";
 import { useState } from "react";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
 import { Searchuser } from "../../Services/Operations/User";
-import {createchat} from "../../Services/Operations/Chats";
+import { createchat } from "../../Services/Operations/Chats";
 function Searchbar() {
     const dispatch = useDispatch();
     let { token } = useSelector((state) => state.auth);
@@ -12,31 +12,33 @@ function Searchbar() {
     let [result, setresult] = useState([]);
     let [loading, setloading] = useState(false);
     // fxn 1
-    async function searchfxn() {
+    async function searchfxn(e) {
         if (query.length === 0) {
             let emptyarr = []
             setresult(emptyarr);
             return
         }
-        setloading(true);
-        let res = await Searchuser({ query }, token)
-        // console.log(res);
-        if (res.success) {
-            setresult(res.data)
+        if (e.code === "Enter" ||e.target.name === "Go") {
+            setloading(true);
+            let res = await Searchuser({ query }, token)
+            // console.log(res);
+            if (res.success) {
+                setresult(res.data)
+            }
+            if (!res.success) {
+                console.log(res.message);
+            }
+            setloading(false);
         }
-        if (!res.success) {
-            console.log(res.message);
-        }
-        setloading(false);
     }
     // fxn2
-    async function newChatfxn(id){
-        let res=await createchat(id,token);
+    async function newChatfxn(id) {
+        let res = await createchat(id, token);
         // console.log(res)
-        if(res.success){
+        if (res.success) {
             dispatch(setsearchbar(false));
         }
-        if(!res.success){
+        if (!res.success) {
             toast.error(res.message);
         }
     }
@@ -55,9 +57,9 @@ function Searchbar() {
                     value={query}
                     placeholder="Search by Name or Emal"
                     onChange={(e) => setquery(e.target.value)}
-                    // onChangeCapture={searchfxn}
+                    onKeyDown={searchfxn}
                 />
-                <button onClick={searchfxn} className="bg-green-700 p-2 rounded-md">Go</button>
+                <button name="Go" onClick={searchfxn} className="bg-green-700 p-2 rounded-md">Go</button>
             </div>
 
             {/* div 3 */}
@@ -65,13 +67,13 @@ function Searchbar() {
                 {
                     loading ? <div className="w-full flex justify-center h-full  items-center"> <div className="loader"></div> </div> : <>
                         {
-                          result.length ==0 ? <div className="w-full h-full flex items-center justify-center text-3xl"><p>Nothing Found</p></div> :  result.map((item, index) => {
-                            return <div onClick={()=>newChatfxn(item._id)} className="p-1 py-2 mt-2 border-2 border-b-slate-900 cursor-pointer" key={index}>
-                                <p>{item.name}</p>
-                                <p>{item.email}</p>
-                               
-                            </div>
-                        }) 
+                            result.length == 0 ? <div className="w-full h-full flex items-center justify-center text-3xl"><p>Nothing Found</p></div> : result.map((item, index) => {
+                                return <div onClick={() => newChatfxn(item._id)} className="p-1 py-2 mt-2 border-2 border-b-slate-900 cursor-pointer" key={index}>
+                                    <p>{item.name}</p>
+                                    <p>{item.email}</p>
+
+                                </div>
+                            })
                         }
                     </>
                 }

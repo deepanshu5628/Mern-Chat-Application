@@ -1,15 +1,16 @@
 import React from 'react'
 import Header from '../Components/Common/Header';
 import ChatInfo from '../Components/Core/Chat/ChatInfo/ChatInfo';
-import ChatLogs from '../Components/Core/Chat/ChatLogs';
+import ChatLogs from '../Components/Core/Chat/ChatLogs/ChatLogs';
 import { useDispatch, useSelector } from 'react-redux';
 import Searchbar from '../Components/Common/Searchbar';
 import { setdialogbox, setsearchbar } from '../Redux/Slices/authSlice';
 import Dialogbox from '../Components/Common/Dialogbox';
 
 function HomePage() {
-    let {searchbar,dialogbox} =useSelector((state)=>state.auth);
+    let {searchbar,dialogbox,selectedchat} =useSelector((state)=>state.auth);
     const dispatch=useDispatch();
+
     return (
         <div className='min-w-full min-h-screen  bg-sky-400'>
             <Header />

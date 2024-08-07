@@ -30,10 +30,14 @@ server.listen(port, () => {
 })
 
 let onlineuser={};
+ const getreciversocketid=(reciveruserid)=>{
+    return onlineuser[reciveruserid];
+}
+module.exports={getreciversocketid,io};
 
 io.on("connection",(socket)=>{
     let userid=socket.handshake.query.userid;
-    console.log("a new user is connected ",userid);
+    console.log("a new user is connected ",socket.id);
 
     onlineuser[userid]=socket.id;
     io.emit("onlineuser",Object.keys(onlineuser));
@@ -43,7 +47,6 @@ io.on("connection",(socket)=>{
         io.emit("onlineuser",onlineuser);
     })
 })
-
 
 
 
